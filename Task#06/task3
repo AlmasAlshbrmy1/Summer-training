@@ -1,0 +1,53 @@
+module caesar_cipher(
+    input  logic [6:0] p,
+    output logic [6:0] c
+);
+always_comb begin
+    if (p >= "A" && p <= "Z") begin
+        if (p + 3 > "Z")
+            c = p + 3 - 26;
+        else
+            c = p + 3;
+    end
+
+    else if (p >= "a" && p <= "z") begin
+        if (p + 3 > "z")
+            c = p + 3 - 26;
+        else
+            c = p + 3;
+    end
+
+    else
+        c = p;
+
+end
+
+endmodule
+
+`timescale 1ns/1ps
+module caesar_cipher_tb;
+logic [6:0] p;
+logic [6:0] c;
+caesar_cipher dut(
+    .p(p),
+    .c(c) );
+integer i;
+initial begin
+    for(i="A"; i<="Z"; i=i+1) begin
+        p = i;
+        #10;
+        $display("%c -> %c", p, c);
+    end
+
+    for(i="a"; i<="z"; i=i+1) begin
+        p = i;
+        #10;
+        $display("%c -> %c", p, c);
+    end
+
+    p = "1"; #10; $display("%c -> %c", p, c);
+    p = "@"; #10; $display("%c -> %c", p, c);
+    p = "#"; #10; $display("%c -> %c", p, c);
+    $finish;
+end
+endmodule
