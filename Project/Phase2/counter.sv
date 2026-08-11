@@ -11,7 +11,7 @@ module counter #(
 
 always_ff @(posedge clk or negedge rstn) begin
     if (!rstn)
-        Q <= 0;
+        Q <= '0;
     else if (load)
         Q <= D;
     else
